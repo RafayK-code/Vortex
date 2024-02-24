@@ -10,7 +10,7 @@ else()
     message(FATAL_ERROR "VULKAN_SDK environment variable not set. Please set it to the Vulkan SDK installation path.")
 endif()
 
-add_subdirectory(GLFW3)
+add_subdirectory(external/glfw)
 
 include_directories(${VULKAN_SDK}/Include)
 
@@ -35,9 +35,9 @@ set(SOURCES
 
 add_executable(main ${SOURCES})
 
-target_include_directories(main PRIVATE glfw/include)
+target_include_directories(main PUBLIC glfw/include)
 
-target_link_libraries(main PRIVATE glfw)
+target_link_libraries(main PUBLIC glfw)
 target_link_libraries(main PRIVATE ${VULKAN_SDK}/Lib/vulkan-1.lib)
 
 # Creating script file to compile shaders
