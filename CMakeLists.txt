@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project("HelloVulkan")
+project("Vortex")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -33,12 +33,12 @@ set(SOURCES
     src/Device.hpp 
 )
 
-add_executable(main ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_include_directories(main PUBLIC glfw/include)
+target_include_directories(${PROJECT_NAME} PUBLIC glfw/include)
 
-target_link_libraries(main PUBLIC glfw)
-target_link_libraries(main PRIVATE ${VULKAN_SDK}/Lib/vulkan-1.lib)
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${VULKAN_SDK}/Lib/vulkan-1.lib)
 
 # Creating script file to compile shaders
 
@@ -92,4 +92,4 @@ endforeach()
 
 add_custom_target(Shaders DEPENDS ${SHADER_OUT_NAMES})
 
-add_dependencies(main Shaders)
+add_dependencies(${PROJECT_NAME} Shaders)
