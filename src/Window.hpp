@@ -13,19 +13,20 @@ namespace vtx
 class Window 
 {
 public:
-    Window(int width, int height, const std::string& title);
+    Window(uint32_t width, uint32_t height, const std::string& title);
     ~Window();
 
     Window(const Window&) = delete;
     Window& operator=(const Window&) = delete;
 
-    inline bool shouldClose() { return glfwWindowShouldClose(_window); }
+    bool shouldClose() { return glfwWindowShouldClose(_window); }
+    VkExtent2D getExtent() { return { _width, _height }; }
 
     void createWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
 
 private:
-    const int _width;
-    const int _height;
+    const uint32_t _width;
+    const uint32_t _height;
 
     std::string _title;
 

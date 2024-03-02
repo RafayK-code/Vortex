@@ -6,7 +6,7 @@
 namespace vtx
 {
 
-Window::Window(int width, int height, const std::string& title)
+Window::Window(uint32_t width, uint32_t height, const std::string& title)
     : _width(width), _height(height), _title(title)
 {
     if(!glfwInit())

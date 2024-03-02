@@ -1,4 +1,6 @@
 #pragma once
+#ifndef _DEVICE_H
+#define _DEVICE_H
 
 #include "Window.hpp"
 
@@ -6,7 +8,8 @@
 #include <string>
 #include <vector>
 
-namespace vtx {
+namespace vtx 
+{
 
 struct SwapChainSupportDetails 
 {
@@ -108,3 +111,5 @@ private:
 };
 
 }
+
+#endif

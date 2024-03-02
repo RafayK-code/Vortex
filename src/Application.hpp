@@ -2,11 +2,13 @@
 #ifndef _APPLICATION_H
 #define _APPLICATION_H
 
-#define NDEBUG
-
 #include "Window.hpp"
 #include "Pipeline.hpp"
 #include "Device.hpp"
+#include "SwapChain.hpp"
+
+#include <memory>
+#include <vector>
 
 namespace vtx
 {
@@ -14,20 +16,29 @@ namespace vtx
 class Application
 {
 public:
-    static constexpr int WIDTH = 800;
-    static constexpr int HEIGHT = 600;
+    static constexpr uint32_t WIDTH = 800;
+    static constexpr uint32_t HEIGHT = 600;
 
-    void init();
+    Application();
+    ~Application();
+
+    Application(const Application&) = delete;
+    Application& operator=(const Application&) = delete;
+
     void run();
 
 private:
+    void createPipelineLayout();
+    void createPipeline();
+    void createCommandBuffers();
+    void drawFrame();
+
     Window _window = Window(WIDTH, HEIGHT, "Hello World");
     Device _device = Device(_window);
-    Pipeline _pipe = Pipeline(
-        _device, 
-        "shaders/simple_shader.vert.spv", 
-        "shaders/simple_shader.frag.spv", 
-        Pipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT));
+    SwapChain _swapChain = SwapChain(_device, _window.getExtent());
+    std::unique_ptr<Pipeline> _pipeline;
+    VkPipelineLayout _pipelineLayout;
+    std::vector<VkCommandBuffer> _commandBuffers;
 };
 
 }

@@ -31,6 +31,8 @@ set(SOURCES
     src/Pipeline.hpp
     src/Device.cpp 
     src/Device.hpp 
+    src/SwapChain.hpp
+    src/SwapChain.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
@@ -43,13 +45,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${VULKAN_SDK}/Lib/vulkan-1.lib)
 # Creating script file to compile shaders
 
 if (UNIX)
-    set(SHELL_SCRIPT_NAME "compile_shaders.sh")
     find_program(GLSLC NAMES glslc)
     if (NOT glslc)
         message(WARNING "Ensure you have glslc in your /usr/local/bin to compile shaders.")
     endif()
 elseif (APPLE)
-    set(SHELL_SCRIPT_NAME "compile_shaders.sh")
     find_program(GLSLC NAMES glslc)
     if (NOT GLSLC)
         set(FILE_PATH ${VULKAN_SDK}/Bin/glslc)
@@ -60,7 +60,6 @@ elseif (APPLE)
         endif()
     endif()
 elseif (WIN32)
-    set(SHELL_SCRIPT_NAME "compile_shaders.bat")
     set(FILE_PATH ${VULKAN_SDK}\\Bin\\glslc.exe)
     if (EXISTS ${FILE_PATH})
         set (GLSLC ${FILE_PATH})
